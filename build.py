@@ -25,7 +25,10 @@ for font in Path("master_ttf").glob("*.ttf"):
     modifiedFont["DSIG"].signatureRecords = []
     if "SemiBold" in str(font):
         modifiedFont["OS/2"].usWeightClass = 600 #it is not being set correctly in the SemiBold weight :/
-
+        
+    print ("["+str(font).split("/")[1][:-4]+"] Modifying 'OS/2' table")
+    modifiedFont["OS/2"].xAvgCharWidth = 500    #Monospaced
+    
     print ("["+str(font).split("/")[1][:-4]+"] Making other changes")
     modifiedFont["head"].flags |= 1 << 3        #sets flag to always round PPEM to integer
     modifiedFont["name"].addMultilingualName({'ja':'クレー One'}, modifiedFont, nameID = 1, windows=True, mac=False)
